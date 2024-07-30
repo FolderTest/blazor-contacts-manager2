@@ -1,13 +1,11 @@
 ﻿@inherits LayoutComponentBase
 
 <div class="sidebar">
-    <NavMenu />
+    <NavLink href="" class="nav-link">Home</NavLink>
+    <NavLink href="contactlist" class="nav-link">Contact List</NavLink>
+    <NavLink href="login" class="nav-link">Login</NavLink>
 </div>
 
 <div class="main">
-    <div class="top-row px-4 auth">
-        <a href="https://docs.microsoft.com/aspnet/core/client-side/blazor/?view=aspnetcore-6.0">About</a>
-    </div>
-
     @Body
 </div>

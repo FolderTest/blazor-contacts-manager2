@@ -1,14 +1,20 @@
-﻿using Microsoft.EntityFrameworkCore;
-using ContactsManager.Shared.Models;
+﻿using ContactsManager.Shared.Models;
+using Microsoft.EntityFrameworkCore;
 
-namespace ContactsManager.Server.Data
+public class ApplicationDbContext : DbContext
 {
-    public class ApplicationDbContext : DbContext
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
-        {
-        }
+    }
 
-        public DbSet<Contact> Contacts { get; set; }
+    public DbSet<Contact> Contacts { get; set; }
+    public DbSet<User> Users { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<User>()
+            .HasKey(u => u.Id);
     }
 }

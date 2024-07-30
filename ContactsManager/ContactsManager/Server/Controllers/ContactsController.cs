@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using ContactsManager.Server.Data;
+//using ContactsManager.Server.Data;
 using ContactsManager.Shared.Models;
 
 namespace ContactsManager.Server.Controllers

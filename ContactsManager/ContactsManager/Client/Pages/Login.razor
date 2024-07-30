@@ -1,0 +1,39 @@
+﻿@page "/login"
+@inject HttpClient Http
+@inject NavigationManager Navigation
+@inject Blazored.LocalStorage.ILocalStorageService LocalStorage
+
+<h3>Login</h3>
+
+<div>
+    <input @bind="email" placeholder="Email" />
+    <input @bind="password" type="password" placeholder="Password" />
+    <button @onclick="HandleLogin">Login</button>
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <p style="color:red;">@errorMessage</p>
+    }
+</div>
+
+@code {
+    private string email;
+    private string password;
+    private string errorMessage;
+
+    private async Task HandleLogin()
+    {
+        var user = new { Email = email, Password = password };
+        var response = await Http.PostAsJsonAsync("api/auth/login", user);
+
+        if (response.IsSuccessStatusCode)
+        {
+            var token = await response.Content.ReadAsStringAsync();
+            await LocalStorage.SetItemAsync("authToken", token);
+            Navigation.NavigateTo("/");
+        }
+        else
+        {
+            errorMessage = "Invalid login attempt. Please try again.";
+        }
+    }
+}
